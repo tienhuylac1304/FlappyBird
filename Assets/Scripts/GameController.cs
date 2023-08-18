@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -18,6 +15,14 @@ public class GameController : MonoBehaviour
     {
         isEndGame = false;
         score = 0;
+        Time.timeScale = 0;
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0)&&!isEndGame&&!gamePlayUIController.GetComponent<GamePlayUIController>().IsPause())
+        {
+           Time.timeScale = 1;
+        }
     }
 
     public bool IsEndGame()
@@ -36,10 +41,6 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
         endGameUIController.SetActive(true);
 
-    }
-    public void Restartgame()
-    {
-        SceneManager.LoadScene(0);
     }
     public int Score()
     {

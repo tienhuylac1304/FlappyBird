@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EndGameUIController : MonoBehaviour
@@ -18,16 +19,28 @@ public class EndGameUIController : MonoBehaviour
     }
     void SetOnclick()
     {
+        btnMenu.onClick.AddListener(ToMenu);
+        btnExit.onClick.AddListener(ExitGame);
         btnRestart.onClick.AddListener(RestartGame);
+    }
+     void ToMenu()
+    {
+        SceneManager.LoadScene(0);
+        SceneManager.UnloadSceneAsync(1);
     }
     void RestartGame()
     {
+
+        SceneManager.LoadScene(1);
         gameObject.SetActive(false);
-        gameController.GetComponent<GameController>().Restartgame();
     }
     void ShowScore()
     {
         txtScore.text= "Your Score: "+ gameController.GetComponent<GameController>().Score().ToString()
                      + "\nBest Score: "+ PlayerPrefs.GetInt("best_score").ToString();
+    }
+    void ExitGame()
+    {
+        Application.Quit();
     }
 }

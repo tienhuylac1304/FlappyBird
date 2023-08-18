@@ -1,61 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PauseGameUIController : MonoBehaviour
+public class SettingController : MonoBehaviour
 {
-    bool isUnMusic;
     bool isMute;
-    public Button btnMusic;
+    bool isUnMusic;
+
     public Button btnSound;
-    public Button btnResume;
-    public Button btnMenu;
-    public Button btnExit;
+    public Button btnMusic;
+    public Button btnAccept;
+    public Button btnCancel;
+
     public Sprite imgMute;
     public Sprite imgSound;
     public Sprite imgMusic;
     public Sprite imgUnMusic;
-    public GameObject gamePlayUIController;
     // Start is called before the first frame update
     void Start()
     {
         AudioState();
         SetOnclick();
     }
-     void SetOnclick()
+    void SetOnclick()
     {
-        btnExit.onClick.AddListener(GameExit);
-        btnMenu.onClick.AddListener(ToMenu);
-        btnResume.onClick.AddListener(Resume);
+        btnAccept.onClick.AddListener(AcceptButtonClick);
+        btnCancel.onClick.AddListener(CancelButtonClick);
         btnMusic.onClick.AddListener(MusicButtonClick);
         btnSound.onClick.AddListener(SoundButtonClick);
     }
-    void GameExit()
-    {
-        Application.Quit();
-    }
-    void ToMenu()
-    {
-        AudioState();
-        SceneManager.LoadScene(0);
-        SceneManager.UnloadSceneAsync(1);
-    }
-     void Resume()
+    void AcceptButtonClick()
     {
         SaveChange();
-        gamePlayUIController.GetComponent<GamePlayUIController>().UnPause();
-        gameObject.SetActive(false );
-        Time.timeScale = 1;
+        gameObject.SetActive(false);
     }
-    // Audio Setting
+    void CancelButtonClick()
+    {
+        AudioState();
+        gameObject.SetActive(false);
+    }
     void SoundButtonClick()
     {
-        isMute=!isMute;
+        isMute = !isMute;
         AudioButtonImage(btnSound, imgMute, imgSound, isMute);
     }
     void MusicButtonClick()
     {
-        isUnMusic=!isUnMusic;
+        isUnMusic = !isUnMusic;
         AudioButtonImage(btnMusic, imgUnMusic, imgMusic, isUnMusic);
     }
     void AudioState()

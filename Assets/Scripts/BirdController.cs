@@ -9,6 +9,7 @@ public class BirdController : MonoBehaviour
     int flyPower;
     //public field
     public GameObject gameController;
+    public GameObject gamePlayUIController;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +20,9 @@ public class BirdController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (Input.GetMouseButtonDown(0)&& !gameController.GetComponent<GameController>().IsEndGame())
+       if (Input.GetMouseButtonDown(0)&& !gameController.GetComponent<GameController>().IsEndGame()&&!gamePlayUIController.GetComponent<GamePlayUIController>().IsPause())
         {
-            obj.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0,flyPower));
+            obj.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, flyPower), ForceMode2D.Force);
 
         }
     }
