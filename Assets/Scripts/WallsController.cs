@@ -11,7 +11,7 @@ public class WallsController : MonoBehaviour
     void Start()
     {
         obj = gameObject;
-        refreshPosX = 10;
+        refreshPosX = 14;
         moveSpeed = 3;
         obj.transform.position = new Vector3(transform.position.x, Random.Range(-2,2), transform.position.z);
     }

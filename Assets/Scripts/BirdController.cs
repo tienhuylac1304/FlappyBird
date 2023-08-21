@@ -10,6 +10,7 @@ public class BirdController : MonoBehaviour
     //public field
     public GameObject gameController;
     public GameObject gamePlayUIController;
+    public GameObject audioController;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class BirdController : MonoBehaviour
        if (Input.GetMouseButtonDown(0)&& !gameController.GetComponent<GameController>().IsEndGame()&&!gamePlayUIController.GetComponent<GamePlayUIController>().IsPause())
         {
             obj.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, flyPower), ForceMode2D.Force);
-
+            audioController.GetComponent<AudioController>().GetFlySound();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

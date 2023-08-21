@@ -16,6 +16,7 @@ public class PauseGameUIController : MonoBehaviour
     public Sprite imgMusic;
     public Sprite imgUnMusic;
     public GameObject gamePlayUIController;
+    public GameObject audioController;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,17 +33,20 @@ public class PauseGameUIController : MonoBehaviour
     }
     void GameExit()
     {
+        audioController.GetComponent<AudioController>().GetClickSound();
         Application.Quit();
     }
     void ToMenu()
     {
         AudioState();
+        audioController.GetComponent<AudioController>().GetClickSound();
         SceneManager.LoadScene(0);
         SceneManager.UnloadSceneAsync(1);
     }
      void Resume()
     {
         SaveChange();
+        audioController.GetComponent<AudioController>().GetClickSound();
         gamePlayUIController.GetComponent<GamePlayUIController>().UnPause();
         gameObject.SetActive(false );
         Time.timeScale = 1;
@@ -52,11 +56,14 @@ public class PauseGameUIController : MonoBehaviour
     {
         isMute=!isMute;
         AudioButtonImage(btnSound, imgMute, imgSound, isMute);
+        audioController.GetComponent<AudioController>().SetTempSound(isMute);
     }
     void MusicButtonClick()
     {
         isUnMusic=!isUnMusic;
         AudioButtonImage(btnMusic, imgUnMusic, imgMusic, isUnMusic);
+        audioController.GetComponent<AudioController>().GetClickSound();
+        audioController.GetComponent<AudioController>().SetTempMusic(isUnMusic);
     }
     void AudioState()
     {

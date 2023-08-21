@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     //public field
     public GameObject gamePlayUIController;
     public GameObject endGameUIController;
+    public GameObject audioController;
 
 
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class GameController : MonoBehaviour
         isEndGame = false;
         score = 0;
         Time.timeScale = 0;
+        audioController.GetComponent<AudioController>().GetThemeMusic();
     }
     private void Update()
     {
@@ -33,10 +35,15 @@ public class GameController : MonoBehaviour
     {
         score++;
         gamePlayUIController.GetComponent<GamePlayUIController>().UpdateScore(score);
+        audioController.GetComponent<AudioController>().GetPointSound();
+
     }
     public void EndGame()
     {
         SetBestScore();
+        audioController.GetComponent<AudioController>().StopThemeMusic();
+        audioController.GetComponent<AudioController>().GetHitSound();
+        audioController.GetComponent<AudioController>().GetGameOverMusic();
         isEndGame = true;
         Time.timeScale = 0;
         endGameUIController.SetActive(true);

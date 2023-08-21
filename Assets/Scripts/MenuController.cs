@@ -9,17 +9,13 @@ public class MenuController : MonoBehaviour
     public Button btnExit;
     public Text txtBestScore;
     public GameObject settingPanel;
+    public GameObject audioController;
     // Start is called before the first frame update
     void Start()
     {
         SetOnclick();
         ShowBestScore();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        audioController.GetComponent<AudioController>().GetThemeMusic();
     }
      void SetOnclick()
     {
@@ -29,15 +25,18 @@ public class MenuController : MonoBehaviour
     }
     void PlayButtonClick()
     {
+        audioController.GetComponent<AudioController>().StopThemeMusic();
         SceneManager.LoadScene(1);
         SceneManager.UnloadSceneAsync(0);
     }
     void SettingButtonClick()
     {
+        audioController.GetComponent<AudioController>().GetClickSound();
         settingPanel.SetActive(true);
     }
     void ExitButtonClick()
     {
+        audioController.GetComponent<AudioController>().GetClickSound();
         Application.Quit();
     }
     void ShowBestScore()

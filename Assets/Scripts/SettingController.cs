@@ -17,6 +17,8 @@ public class SettingController : MonoBehaviour
     public Sprite imgSound;
     public Sprite imgMusic;
     public Sprite imgUnMusic;
+
+    public GameObject audioController;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,23 +34,30 @@ public class SettingController : MonoBehaviour
     }
     void AcceptButtonClick()
     {
+        
         SaveChange();
+        audioController.GetComponent<AudioController>().GetClickSound();
         gameObject.SetActive(false);
     }
     void CancelButtonClick()
     {
+        
         AudioState();
+        audioController.GetComponent<AudioController>().GetClickSound();
         gameObject.SetActive(false);
     }
     void SoundButtonClick()
     {
         isMute = !isMute;
         AudioButtonImage(btnSound, imgMute, imgSound, isMute);
+        audioController.GetComponent<AudioController>().SetTempSound(isMute);
     }
     void MusicButtonClick()
     {
         isUnMusic = !isUnMusic;
         AudioButtonImage(btnMusic, imgUnMusic, imgMusic, isUnMusic);
+        audioController.GetComponent<AudioController>().SetTempMusic(isUnMusic);
+        audioController.GetComponent<AudioController>().SetTempSound(isMute);
     }
     void AudioState()
     {
