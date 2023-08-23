@@ -7,6 +7,7 @@ public class BirdController : MonoBehaviour
 {
     GameObject obj;
     int flyPower;
+    Animator animator;
     //public field
     public GameObject gameController;
     public GameObject gamePlayUIController;
@@ -14,8 +15,13 @@ public class BirdController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         obj = gameObject;
+        animator = obj.GetComponent<Animator>();
         flyPower = 250;
+        animator.SetBool("isDead", false);
+        animator.SetFloat("flyPower", 0);
+
     }
 
     // Update is called once per frame
@@ -26,6 +32,8 @@ public class BirdController : MonoBehaviour
             obj.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0, flyPower), ForceMode2D.Force);
             audioController.GetComponent<AudioController>().GetFlySound();
         }
+        animator.SetFloat("flyPower", obj.GetComponent<Rigidbody2D>().velocity.y);
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -36,6 +44,9 @@ public class BirdController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        animator.SetBool("isDead", true);
+        Debug.Log(animator.GetBool("isDead"));
+        Debug.Log(animator.GetFloat("flyPower"));
         gameController.GetComponent<GameController>().EndGame();
     }
 }
